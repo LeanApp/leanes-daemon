@@ -41,7 +41,7 @@ I couldn't find a solution fo fix it (this error becames from `rollup-plugin-nod
 ## For development
 
 ```
-docker network create --subnet=192.168.1.0/24 common
+docker network create --subnet=192.168.2.0/24 common
 docker volume create --name=mongodb-data
 ```
 

@@ -41,8 +41,8 @@ class DaemonApp extends LeanES {
   @meta static object = {};
   @constant ROOT = __dirname;
   @constant MAKE_REQUEST = 'MAKE_REQUEST';
-  @constant SIMPLE_PROXY = 'DaemonProxy';
-  @constant SIMPLE_ADAPTER = 'DaemonAdapter';
+  @constant MONGO_ADAPTER = 'MongoAdapter';
+  @constant REQUEST_RESULTS = 'RequestResultsCollection';
 };
 
 

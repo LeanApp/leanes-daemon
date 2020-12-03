@@ -13,33 +13,42 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with leanes-daemon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { DaemonAdapterInterface } from '../interfaces/DaemonAdapterInterface';
+import type { DriverInterface } from '../interfaces/DriverInterface';
 
 export default (Module) => {
   const {
-    SIMPLE_ADAPTER,
-    Proxy,
-    initialize, partOf, meta, nameBy, property, method, inject,
+    Adapter,
+    ConfigurableMixin,
+    MongoAdapterMixin,
+    initialize, partOf, meta, property, nameBy, mixin,
   } = Module.NS;
 
   @initialize
   @partOf(Module)
-  class DaemonProxy extends Proxy {
+  @mixin(MongoAdapterMixin)
+  @mixin(ConfigurableMixin)
+  class MongoAdapter extends Adapter implements DriverInterface {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
-    @inject(`Factory<${SIMPLE_ADAPTER}>`)
-    @property _adapterFactory: () => DaemonAdapterInterface;
-    @property get _daemonAdapter(): DaemonAdapterInterface {
-      return this._adapterFactory()
-    }
+    @property get host(): string {
+      return this.configs[this.getName()].host;
+    };
 
-    @method setData(data: ?any): void {
-      this._daemonAdapter.set(data);
-    }
+    @property get port(): string {
+      return this.configs[this.getName()].port;
+    };
 
-    @method getData(): ?any {
-      return this._daemonAdapter.get();
-    }
+    @property get dbName(): string {
+      return this.configs[this.getName()].dbName;
+    };
+
+    @property get username(): ?string {
+      return this.configs[this.getName()].username;
+    };
+
+    @property get password(): ?string {
+      return this.configs[this.getName()].password;
+    };
   }
 }

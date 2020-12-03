@@ -2,7 +2,7 @@ version: '3.5'
 services:
   broccoli:
     image: node:14.9.0-buster
-    container_name: broccoli
+    # container_name: broccoli
     # environment:
     #   - HOST=0.0.0.0
     #   - PORT=8080
@@ -14,7 +14,8 @@ services:
     entrypoint: npm run watch
     working_dir: /usr/src/build
     networks:
-      - common
+      common:
+        ipv4_address: 192.168.2.4
     logging:
       driver: "json-file"
       options:
@@ -33,27 +34,28 @@ services:
       - ${APP_PATH}/.bash_history:/root/.bash_history
     working_dir: /usr/src/app
     networks:
-      - common
+      common:
+        ipv4_address: 192.168.2.3
     logging:
       driver: "json-file"
       options:
         max-file: "2"
         max-size: 750m
-  mongodb:
+  db:
     image: mongo:4.2.0-bionic
-    container_name: mongo
+    container_name: db
     command: --wiredTigerCacheSizeGB 1
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       # <Port exposed> : < Port running inside container>
-      - '27057:27017'
+      - '27077:27017'
     volumes:
       - mongodb-data:/data/db
     networks:
       common:
-        ipv4_address: 192.168.1.2
+        ipv4_address: 192.168.2.2
     logging:
       driver: "json-file"
       options:

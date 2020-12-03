@@ -13,32 +13,43 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with leanes-daemon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { DaemonProxyInterface } from '../interfaces/DaemonProxyInterface';
+import type { CollectionInterface } from '../interfaces/CollectionInterface';
 
 export default (Module) => {
   const {
-    SIMPLE_PROXY,
+    REQUEST_RESULTS,
     Script,
-    initialize, partOf, meta, method, property, nameBy, inject
+    ConfigurableMixin,
+    initialize, partOf, meta, method, property, nameBy, inject, mixin,
+    Utils: { request }
   } = Module.NS;
 
   @initialize
   @partOf(Module)
+  @mixin(ConfigurableMixin)
   class DaemonScript extends Script {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
-    @inject(`Factory<${SIMPLE_PROXY}>`)
-    @property _daemonProxyFactory: () => DaemonProxyInterface;
-    @property get _daemonProxy(): DaemonProxyInterface {
-      return this._daemonProxyFactory()
+    @inject(`Factory<${REQUEST_RESULTS}>`)
+    @property _resultsCollectionFactory: () => CollectionInterface;
+    @property get _resultsCollection(): CollectionInterface {
+      return this._resultsCollectionFactory()
     }
 
     @method async body(data: ?any): Promise<?any> {
       console.log('DaemonScript execute()');
-      this._daemonProxy.setData('');
-      await this.send(MSG_TO_CONSOLE, this._daemonProxy.getData());
-      return 'clearing compleated';
+      // const result = await request("GET", this.configs.url, {headers: {'content-type': 'application/json'}});
+      const result = await request("GET", this.configs.url);
+      console.log('?>?>>', result);
+      throw new Error('STOP')
+      await this._resultsCollection.create({
+        body: result.body,
+        headers: result.headers,
+        status: result.status,
+        message: result.message,
+      });
+      return 'compleated';
     }
   }
 }

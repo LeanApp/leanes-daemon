@@ -2,15 +2,17 @@
 
 export default (Module) => {
   const {
-    Migration,
-    MongoMigrationMixin,
+    Collection,
+    MongoCollectionMixin,
+    GenerateUuidIdMixin,
     initialize, partOf, meta, nameBy, mixin
   } = Module.NS;
 
   @initialize
   @partOf(Module)
-  @mixin(MongoMigrationMixin)
-  class BaseMigration extends Migration {
+  @mixin(MongoCollectionMixin)
+  @mixin(GenerateUuidIdMixin)
+  class MainCollection extends Collection {
     @nameBy static  __filename = __filename;
     @meta static object = {};
   }
