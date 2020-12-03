@@ -39,7 +39,31 @@ services:
       options:
         max-file: "2"
         max-size: 750m
+  mongodb:
+    image: mongo:4.2.0-bionic
+    container_name: mongo
+    command: --wiredTigerCacheSizeGB 1
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      # <Port exposed> : < Port running inside container>
+      - '27057:27017'
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      common:
+        ipv4_address: 192.168.1.2
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "2"
+        max-size: 750m
 networks:
   common:
     external:
       name: common
+volumes:
+  mongodb-data:
+    external:
+      name: mongodb-data

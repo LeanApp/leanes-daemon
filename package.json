@@ -10,17 +10,14 @@
     "start": "pm2 start app/index.js",
     "pm2": "pm2",
     "test": "mocha",
-    "test_build": "ENV=build mocha",
-    "script": "babel-node --ignore ['node_modules/@babel/plugin-syntax-flow/**'] --config-file ./babel.config.js ./src/index.js"
+    "test_build": "ENV=build mocha"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LeanApp/leanes-daemon.git"
   },
   "author": "Denis Trayzhon <d.g.trayzhon@gmail.com>",
-  "contributors": [
-    "Irina Markevich"
-  ],
+  "contributors": [],
   "directories": {
     "app": "app",
     "test": "test"
@@ -79,6 +76,8 @@
     "@leansdk/leanes": "https://github.com/LeanSDK/leanes.git#feature/application_module_improvements",
     "@leansdk/leanes-fs-utils-addon": "https://github.com/LeanSDK/leanes-fs-utils-addon.git#develop",
     "@leansdk/leanes-configurable-addon": "https://github.com/LeanSDK/leanes-configurable-addon.git#develop",
+    "@leansdk/leanes-mapper-addon": "https://github.com/LeanSDK/leanes-mapper-addon.git#develop",
+    "@leansdk/leanes-mongo-addon": "https://github.com/LeanSDK/leanes-mongo-addon.git",
     "cron": "1.8.2",
     "nodemon": "1.19.4",
     "pm2": "^3.5.1"

@@ -38,6 +38,13 @@ Stack Trace and Error Report: /tmp/error.dump.b981366098a6d223770d1ff78180f99b.l
 But it made correct build result in `/lib`
 I couldn't find a solution fo fix it (this error becames from `rollup-plugin-node-globals`)
 
+## For development
+
+```
+docker network create --subnet=192.168.1.0/24 common
+docker volume create --name=mongodb-data
+```
+
 ## Additional information useful but not for deploy
 
 ### Absent permissions bug

@@ -55,6 +55,12 @@ const devJS = replacer(new WatchedDir(appRoot), {
   }, {
     match: '__FsUtilsAddon__',
     replacement: '@leansdk/leanes-fs-utils-addon/lib/index.dev',
+  }, {
+    match: '__MapperAddon__',
+    replacement: '@leansdk/leanes-mapper-addon/lib/index.dev',
+  }, {
+    match: '__MongoAddon__',
+    replacement: '@leansdk/leanes-mongo-addon/lib/index.dev',
   },]
 });
 const dev = esTranspiler(devJS, {
@@ -276,6 +282,12 @@ const prodJS = replacer(appRoot, {
   }, {
     match: '__FsUtilsAddon__',
     replacement: '@leansdk/leanes-fs-utils-addon',
+  }, {
+    match: '__MapperAddon__',
+    replacement: '@leansdk/leanes-mapper-addon',
+  }, {
+    match: '__MongoAddon__',
+    replacement: '@leansdk/leanes-mongo-addon',
   },]
 });
 const prod = esTranspiler(prodJS, {
