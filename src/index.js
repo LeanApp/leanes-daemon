@@ -41,25 +41,10 @@ class DaemonApp extends LeanES {
   @meta static object = {};
   @constant ROOT = __dirname;
   @constant MAKE_REQUEST = 'MAKE_REQUEST';
-  @constant MONGO_ADAPTER = 'MongoAdapter';
+  @constant MIGRATIONS_ADAPTER = 'MigrationsAdapter';
+  @constant REQUEST_RESULTS_ADAPTER = 'RequestResultsAdapter';
   @constant REQUEST_RESULTS = 'RequestResultsCollection';
-};
+  @constant SIGNALS_GENERATOR = 'SignalsGenerator';
+}
 
-
-console.log('>>>>QQQQ 222');
-const initialState = {};
-const app = DaemonApp.NS.MainApplication.new(initialState);
-console.log('>>>>QQQQ 333');
-app.start();
-console.log('>>>>QQQQ 444');
-const { ERROR, DEBUG, LEVELS, SEND_TO_LOG } = DaemonApp.NS.Pipes.NS.LogMessage;
-app.setLogLevelMethod(DEBUG);
-console.log('>>>>QQQQ 1010+1++');
-
-console.log('>>>>QQQQ 444++', ERROR, DEBUG, LEVELS, SEND_TO_LOG);
-app.send(
-  SEND_TO_LOG, 'Hello world', LEVELS[DEBUG]
-);
-console.log('>>>>QQQQ 555');
-
-export default app;
+export default DaemonApp;

@@ -13,37 +13,19 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with leanes-daemon.  If not, see <https://www.gnu.org/licenses/>.
 
-import { CronJob } from 'cron';
-
 export default (Module) => {
   const {
-    MAKE_REQUEST,
     Mediator,
-    ApplicationMediatorMixin,
+    ApplicationMediatorMixin, MigratifyApplicationMediatorMixin,
     initialize, partOf, meta, nameBy, method, property, mixin
   } = Module.NS;
 
   @initialize
   @partOf(Module)
+  @mixin(MigratifyApplicationMediatorMixin)
   @mixin(ApplicationMediatorMixin)
   class ApplicationMediator extends Mediator {
     @nameBy static  __filename = __filename;
     @meta static object = {};
-
-    @property _job = null;
-
-    @method onRegister(): void  {
-      super.onRegister();
-      this._job = new CronJob('*/7 * * * * *', async () => {
-        const result = await this.run(MAKE_REQUEST);
-        // console.log(`Result from script: "${result}"`);
-      }, null, true, 'America/Los_Angeles');
-      this._job.start();
-    }
-
-    @method async onRemove(): Promise<void> {
-      await super.onRemove();
-      this._job.stop();
-    }
   }
 }

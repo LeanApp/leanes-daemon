@@ -18,7 +18,7 @@ import type { ApplicationInterface } from '../interfaces/ApplicationInterface';
 
 export default (Module) => {
   const {
-    APPLICATION_PROXY, CONFIGURATION, MONGO_ADAPTER, MIGRATIONS, REQUEST_RESULTS,
+    APPLICATION_PROXY, CONFIGURATION, MIGRATIONS_ADAPTER, REQUEST_RESULTS_ADAPTER, MIGRATIONS, REQUEST_RESULTS,
     Command,
     initialize, partOf, meta, method, nameBy
   } = Module.NS;
@@ -34,14 +34,15 @@ export default (Module) => {
       const app: ApplicationInterface = note.getBody();
       this.facade.addProxy(APPLICATION_PROXY, 'ApplicationProxy', app.initialState);
       this.facade.addProxy(CONFIGURATION, 'MainConfiguration', this.Module.NS.ROOT);
-      this.facade.addAdapter(MONGO_ADAPTER, 'MongoAdapter');
+      this.facade.addAdapter(MIGRATIONS_ADAPTER, 'MongoAdapter');
+      this.facade.addAdapter(REQUEST_RESULTS_ADAPTER, 'MongoAdapter');
       this.facade.addProxy(MIGRATIONS, 'MigrationsCollection', {
         delegate: 'BaseMigration',
-        adapter: 'MongoAdapter'
+        adapter: MIGRATIONS_ADAPTER
       });
       this.facade.addProxy(REQUEST_RESULTS, 'MainCollection', {
         delegate: 'RequestResultRecord',
-        adapter: 'MongoAdapter'
+        adapter: REQUEST_RESULTS_ADAPTER
       });
     }
   }

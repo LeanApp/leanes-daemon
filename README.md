@@ -45,6 +45,12 @@ docker network create --subnet=192.168.2.0/24 common
 docker volume create --name=mongodb-data
 ```
 
+## For run migrations
+
+```
+./npm run dev_migrate -- --until 20201203183000_create_request_results_migration
+```
+
 ## Additional information useful but not for deploy
 
 ### Absent permissions bug

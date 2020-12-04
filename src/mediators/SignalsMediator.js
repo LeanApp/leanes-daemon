@@ -13,26 +13,35 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with leanes-daemon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { NotificationInterface } from '../interfaces/NotificationInterface';
+import { CronJob } from 'cron';
 
 export default (Module) => {
   const {
-    MIGRATE, ROLLBACK, MAKE_REQUEST,
-    Command,
-    initialize, partOf, meta, method, nameBy
+    MAKE_REQUEST,
+    Mediator,
+    initialize, partOf, meta, nameBy, method, property, mixin
   } = Module.NS;
 
   @initialize
   @partOf(Module)
-  class PrepareControllerCommand extends Command {
+  class SignalsMediator extends Mediator {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
-    @method execute<T = ?any>(note: NotificationInterface<T>): void {
-      console.log('PrepareControllerCommand execute()');
-      this.facade.addCommand(MIGRATE, 'MigrateCommand');
-      this.facade.addCommand(ROLLBACK, 'RollbackCommand');
-      this.facade.addCommand(MAKE_REQUEST, 'DaemonScript');
+    @property _job = null;
+
+    @method onRegister(): void  {
+      super.onRegister();
+      this._job = new CronJob('*/7 * * * * *', async () => {
+        const result = await this.run(MAKE_REQUEST);
+        // console.log(`Result from script: "${result}"`);
+      }, null, true, 'America/Los_Angeles');
+      this._job.start();
+    }
+
+    @method async onRemove(): Promise<void> {
+      await super.onRemove();
+      this._job.stop();
     }
   }
 }

@@ -23,7 +23,6 @@ export default (Module) => {
       this.addField(name, 'message', 'string')
 
       this.addIndex(name, ['id'], {type: 'hash', unique: true})
-      this.addIndex(name, ['id', 'type'], {type: 'hash'})
     }
   }
 }

@@ -4,9 +4,14 @@
   "description": "LeanES application as daemon example",
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "broccoli build --prod --output-path app",
     "watch": "broccoli serve --output-path dev",
-    "dev": "nodemon -L --delay 10ms --watch dev/ --require source-map-support/register --trace-warnings dev/index.js 8080",
+    "dev": "nodemon -L --delay 10ms --watch dev/ --require source-map-support/register --trace-warnings index.js",
+    "dev_build": "broccoli build --output-path dev",
+    "dev_migrate": "ENV=development node --require source-map-support/register --trace-warnings migrate",
+    "dev_rollback": "ENV=development node --require source-map-support/register --trace-warnings rollback",
+    "build": "broccoli build --prod --output-path app",
+    "migrate": "node migrate",
+    "rollback": "node rollback",
     "start": "pm2 start app/index.js",
     "pm2": "pm2",
     "test": "mocha",
@@ -34,7 +39,7 @@
       "description": "URL for request",
       "type": "string"
     },
-    "MongoAdapter": {
+    "mongodb": {
       "default": {
         "host": "192.168.2.2",
         "port": "27017",
@@ -91,10 +96,11 @@
   },
   "dependencies": {
     "@leansdk/leanes": "https://github.com/LeanSDK/leanes.git#feature/application_module_improvements",
-    "@leansdk/leanes-fs-utils-addon": "https://github.com/LeanSDK/leanes-fs-utils-addon.git#develop",
     "@leansdk/leanes-configurable-addon": "https://github.com/LeanSDK/leanes-configurable-addon.git#develop",
+    "@leansdk/leanes-fs-utils-addon": "https://github.com/LeanSDK/leanes-fs-utils-addon.git#develop",
     "@leansdk/leanes-mapper-addon": "https://github.com/LeanSDK/leanes-mapper-addon.git#develop",
     "@leansdk/leanes-mongo-addon": "https://github.com/LeanSDK/leanes-mongo-addon.git",
+    "commander": "^6.2.0",
     "cron": "1.8.2",
     "nodemon": "1.19.4",
     "pm2": "^3.5.1"

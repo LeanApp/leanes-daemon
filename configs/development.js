@@ -4,7 +4,7 @@ module.exports = {
     "description": "URL for request",
     "type": "string"
   },
-  "MongoAdapter": {
+  "mongodb": {
     "default": {
       "host": "192.168.2.2",
       "port": "27017",

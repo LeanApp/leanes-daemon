@@ -4,7 +4,7 @@ export default (Module) => {
   const {
     Migration,
     MongoMigrationMixin,
-    initialize, partOf, meta, nameBy, mixin
+    initialize, partOf, meta, nameBy, method, mixin
   } = Module.NS;
 
   @initialize
@@ -13,5 +13,7 @@ export default (Module) => {
   class BaseMigration extends Migration {
     @nameBy static  __filename = __filename;
     @meta static object = {};
+
+    @method static change() {}
   }
 }

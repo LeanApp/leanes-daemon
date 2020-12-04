@@ -15,7 +15,8 @@ export default (Module) => {
     APPLICATION_PROXY,
     Pipes,
     Application,
-    initialize, partOf, meta, property, method, nameBy,
+    MigratifyApplicationMixin,
+    initialize, partOf, meta, property, method, nameBy, mixin,
     Utils: { _ }
   } = Module.NS;
 
@@ -26,6 +27,7 @@ export default (Module) => {
 
   @initialize
   @partOf(Module)
+  @mixin(MigratifyApplicationMixin)
   class MainApplication extends Application {
     @nameBy static  __filename = __filename;
     @meta static object = {};

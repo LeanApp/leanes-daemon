@@ -32,23 +32,23 @@ export default (Module) => {
     @meta static object = {};
 
     @property get host(): string {
-      return this.configs[this.getName()].host;
+      return this.configs['mongodb'].host;
     };
 
     @property get port(): string {
-      return this.configs[this.getName()].port;
+      return this.configs['mongodb'].port;
     };
 
     @property get dbName(): string {
-      return this.configs[this.getName()].dbName;
+      return this.configs['mongodb'].dbName;
     };
 
     @property get username(): ?string {
-      return this.configs[this.getName()].username;
+      return this.configs['mongodb'].username;
     };
 
     @property get password(): ?string {
-      return this.configs[this.getName()].password;
+      return this.configs['mongodb'].password;
     };
   }
 }

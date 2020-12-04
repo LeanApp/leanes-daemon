@@ -50,7 +50,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       # <Port exposed> : < Port running inside container>
-      - '27077:27017'
+      - '27057:27017'
     volumes:
       - mongodb-data:/data/db
     networks:

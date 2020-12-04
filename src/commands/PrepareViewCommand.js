@@ -18,7 +18,7 @@ import type { ApplicationInterface } from '../interfaces/ApplicationInterface';
 
 export default (Module) => {
   const {
-    APPLICATION_MEDIATOR, SHELL, LOGGER_MODULE,
+    APPLICATION_MEDIATOR, SHELL, LOGGER_MODULE, SIGNALS_GENERATOR,
     Command,
     initialize, partOf, meta, method, nameBy
   } = Module.NS;
@@ -40,6 +40,11 @@ export default (Module) => {
       this.facade.activateMediator(APPLICATION_MEDIATOR);
       this.facade.activateMediator(LOGGER_MODULE);
       this.facade.activateMediator(SHELL);
+
+      if (!app.isLightweight) {
+        this.facade.addMediator(SIGNALS_GENERATOR, 'SignalsMediator');
+        this.facade.activateMediator(SIGNALS_GENERATOR);
+      }
     }
   }
 }
