@@ -30,7 +30,6 @@ export default (Module) => {
     @meta static object = {};
 
     @method execute<T = ?any>(note: NotificationInterface<T>): void {
-      console.log('PrepareViewCommand execute()');
       const app: ApplicationInterface = note.getBody();
 
       this.facade.addMediator(LOGGER_MODULE, 'LoggerModuleMediator');

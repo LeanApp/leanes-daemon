@@ -29,7 +29,6 @@ export default (Module) => {
     @meta static object = {};
 
     @method execute<T = ?any>(note: NotificationInterface<T>): void {
-      console.log('PrepareControllerCommand execute()');
       this.facade.addCommand(MIGRATE, 'MigrateCommand');
       this.facade.addCommand(ROLLBACK, 'RollbackCommand');
       this.facade.addCommand(MAKE_REQUEST, 'DaemonScript');

@@ -13,8 +13,6 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with leanes-daemon.  If not, see <https://www.gnu.org/licenses/>.
 
-console.log('>>>>QQQQ 000-+911*');
-
 import LeanES from '__LeanES__';
 import FsUtilsAddon from '__FsUtilsAddon__';
 import ConfigurableAddon from '__ConfigurableAddon__';
@@ -22,14 +20,14 @@ import {
   default as MapperAddon, MigratableModule, loadMigrations
 } from '__MapperAddon__';
 import MongoAddon from '__MongoAddon__';
+import QueryableAddon from '__QueryableAddon__';
 
 const { initialize, meta, nameBy, resolver, constant, plugin, loadFiles } = LeanES.NS;
-
-console.log('>>>>QQQQ 111+');
 
 @initialize
 @loadFiles
 @loadMigrations
+@plugin(QueryableAddon)
 @plugin(MongoAddon)
 @plugin(MigratableModule)
 @plugin(MapperAddon)

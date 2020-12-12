@@ -1,54 +1,57 @@
 // This file is part of leanes-daemon.
 //
-// leanes-daemon is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
-// leanes-daemon is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with leanes-daemon.  If not, see <https://www.gnu.org/licenses/>.
+// Software distributed under the License is distributed on an "AS IS" basis,
+// WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+// the specific language governing rights and limitations under the License.
 
 import type { DriverInterface } from '../interfaces/DriverInterface';
+
+const {
+  DB_PROTO, DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS,
+} = process.env;
 
 export default (Module) => {
   const {
     Adapter,
-    ConfigurableMixin,
     MongoAdapterMixin,
+    QueryableMongoAdapterMixin,
     initialize, partOf, meta, property, nameBy, mixin,
   } = Module.NS;
 
   @initialize
   @partOf(Module)
+  @mixin(QueryableMongoAdapterMixin)
   @mixin(MongoAdapterMixin)
-  @mixin(ConfigurableMixin)
   class MongoAdapter extends Adapter implements DriverInterface {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
+    @property get dbProto(): string {
+      return DB_PROTO;
+    };
+
     @property get host(): string {
-      return this.configs['mongodb'].host;
+      return DB_HOST;
     };
 
     @property get port(): string {
-      return this.configs['mongodb'].port;
+      return DB_PORT;
     };
 
     @property get dbName(): string {
-      return this.configs['mongodb'].dbName;
+      return DB_NAME;
     };
 
     @property get username(): ?string {
-      return this.configs['mongodb'].username;
+      return DB_USER;
     };
 
     @property get password(): ?string {
-      return this.configs['mongodb'].password;
+      return DB_PASS;
     };
   }
 }

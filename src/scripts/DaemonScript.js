@@ -55,7 +55,6 @@ export default (Module) => {
     }
 
     @method async body(data: ?any): Promise<?any> {
-      console.log('DaemonScript execute()');
       if (! await this.checkSchemaVersion()) return;
       const result = await request("GET", this.configs.url);
       await this._results.create({
