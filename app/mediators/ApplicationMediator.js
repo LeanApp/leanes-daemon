@@ -27,8 +27,6 @@ var _default = Module => {
     partOf,
     meta,
     nameBy,
-    method,
-    property,
     mixin
   } = Module.NS;
   let ApplicationMediator = (_dec = partOf(Module), _dec2 = mixin(MigratifyApplicationMediatorMixin), _dec3 = mixin(ApplicationMediatorMixin), initialize(_class = _dec(_class = _dec2(_class = _dec3(_class = (_class2 = (_temp = _class3 = class ApplicationMediator extends Mediator {}, _class3.__filename = __filename, _class3.object = {}, _temp), ((0, _applyDecoratedDescriptor2.default)(_class2, "__filename", [nameBy], (_init = Object.getOwnPropertyDescriptor(_class2, "__filename"), _init = _init ? _init.value : undefined, {

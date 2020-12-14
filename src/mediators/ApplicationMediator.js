@@ -12,7 +12,7 @@ export default (Module) => {
   const {
     Mediator,
     ApplicationMediatorMixin, MigratifyApplicationMediatorMixin,
-    initialize, partOf, meta, nameBy, method, property, mixin
+    initialize, partOf, meta, nameBy, mixin
   } = Module.NS;
 
   @initialize
