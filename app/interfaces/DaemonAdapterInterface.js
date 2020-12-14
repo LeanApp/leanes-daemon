@@ -1,12 +1,3 @@
-"use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-exports.__esModule = true;
-exports.DaemonAdapterInterface = void 0;
-
-var _flowRuntime = _interopRequireDefault(require("flow-runtime"));
-
 // This file is part of leanes-daemon.
 //
 // leanes-daemon is free software: you can redistribute it and/or modify
@@ -21,6 +12,15 @@ var _flowRuntime = _interopRequireDefault(require("flow-runtime"));
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with leanes-daemon.  If not, see <https://www.gnu.org/licenses/>.
-const DaemonAdapterInterface = _flowRuntime.default.type("DaemonAdapterInterface", _flowRuntime.default.object(_flowRuntime.default.property("_cleanType", _flowRuntime.default.string("adapter")), _flowRuntime.default.property("getName", _flowRuntime.default.function(_flowRuntime.default.return(_flowRuntime.default.string()))), _flowRuntime.default.property("setName", _flowRuntime.default.function(_flowRuntime.default.param("asName", _flowRuntime.default.string()), _flowRuntime.default.return(_flowRuntime.default.void()))), _flowRuntime.default.property("set", _flowRuntime.default.function(_flowRuntime.default.param("data", _flowRuntime.default.nullable(_flowRuntime.default.any())), _flowRuntime.default.return(_flowRuntime.default.void()))), _flowRuntime.default.property("get", _flowRuntime.default.function(_flowRuntime.default.return(_flowRuntime.default.nullable(_flowRuntime.default.any()))))));
 
-exports.DaemonAdapterInterface = DaemonAdapterInterface;
+export interface DaemonAdapterInterface {
+  _cleanType: 'adapter';
+
+  getName(): string;
+
+  setName(asName: string): void;
+
+  set(data: ?any): void;
+
+  get(): ?any;
+}
